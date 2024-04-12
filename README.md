@@ -1,1 +1,1 @@
-# job-cache
+JobCache is a job tracking tool developed specifically for developers.
