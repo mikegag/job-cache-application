@@ -1,0 +1,84 @@
+:root {
+  /* color palette */
+  --main-bg-color: #fffdf8;
+  --accent-color-darkblue: #303e4d;
+  --accent-color-gold: #ffc445;
+  --accent-color-cream: #fcf7eb;
+  --accent-color-darkcream: #ebe3d0;
+}
+
+html,
+body {
+  margin: 0;
+  font-family: Montserrat, sans-serif;
+  background: var(--main-bg-color);
+  color: var(--accent-color-darkblue);
+}
+
+.app-container {
+  background: var(--main-bg-color);
+  padding: 2em 1em;
+}
+
+.header-component button:hover {
+  background: var(--accent-color-darkblue) !important;
+  color: var(--accent-color-cream) !important;
+}
+
+.form-btn:hover {
+  background: var(--accent-color-gold) !important;
+  color: var(--accent-color-darkblue) !important;
+  outline: 1px solid var(--accent-color-darkblue) !important;
+}
+
+.job-list-application:hover {
+  background: var(--accent-color-darkcream) !important;
+}
+
+/* media queries */
+@media (min-width: 850px) {
+  .app-container {
+    padding: 2em;
+  }
+
+  .job-list-component h3,
+  .new-job-component h3,
+  .job-details-component h3,
+  .motivate-info-section h4 {
+    font-size: 1.5rem !important;
+  }
+
+  .new-job-component,
+  .job-list-component,
+  .job-details-component,
+  .motivate-info-section {
+    padding: 0 11em !important;
+  }
+
+  .form-btn {
+    margin-top: 2em !important;
+  }
+
+  .details-info-right,
+  .job-info-right {
+    padding-left: 2em !important;
+  }
+}
+
+@media (min-width: 1100px) {
+  .new-job-component,
+  .job-list-component,
+  .job-details-component,
+  .motivate-info-section {
+    padding: 0 14em !important;
+  }
+
+  .job-details-component .form-input,
+  .new-job-component .form-input {
+    margin-right: 1em !important;
+  }
+
+  .form-navigation-icon {
+    font-size: 1.5rem !important;
+  }
+}
