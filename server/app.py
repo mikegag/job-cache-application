@@ -11,7 +11,7 @@ from routes import auth_routes, job_routes
 # Load environment variables from .env file
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../job-cache-app/build')
 CORS(app)
 
 login_manager = LoginManager()
@@ -37,4 +37,4 @@ def load_user(user_id):
     return User.get(user_id)
 
 if __name__ == '__main__':
-    app.run(debug=True, ssl_context=('cert.pem', 'key.pem'))
+    app.run(ssl_context=('cert.pem', 'key.pem'))

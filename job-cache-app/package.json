@@ -2,7 +2,7 @@
   "name": "job-cache-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://job-cache-application-server.vercel.app/", 
+  "proxy": "https://job-cache-server-d10d775041b7.herokuapp.com/", 
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
