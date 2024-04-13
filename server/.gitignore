@@ -5,3 +5,5 @@ venv/
 cert.pem
 
 key.pem
+
+vercel.json
