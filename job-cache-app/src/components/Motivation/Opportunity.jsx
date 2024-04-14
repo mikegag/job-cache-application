@@ -36,13 +36,13 @@ export default function Opportunity() {
            
             if (response.ok) {
                 const responseData = await response.json()
-                console.log(responseData.results)
                 const selectedOpportunity = sortResults(responseData.results)[randomIndex()]
                 setJobOpportunity(selectedOpportunity)
                 localStorage.setItem("jobOpportunity", JSON.stringify(selectedOpportunity))
                 localStorage.setItem("lastJobOpportunityTime", Date.now())
             } else {
                 console.error("failed to retrieve job opportunity")
+                console.log(process.env.REACT_APP_FINDWORK_API_KEY)
             }
         } catch (error) {
             console.error("Error:", error)
