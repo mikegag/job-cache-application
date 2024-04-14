@@ -33,7 +33,7 @@ app.register_blueprint(job_routes)
 
 @login_manager.user_loader
 def load_user(user_id):
-    from models import User 
+    from server.models import User 
     return User.get(user_id)
 
 
