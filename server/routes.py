@@ -20,7 +20,7 @@ auth_routes = Blueprint('auth', __name__)
 
 @auth_routes.route('/login', methods=['POST', 'GET'])
 def login():
-    from models import User
+    from server.models import User
 
     if request.method == 'POST':
         data = request.get_json()
