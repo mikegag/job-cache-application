@@ -45,7 +45,9 @@ def serve(path):
         return send_from_directory(app.static_folder, path)
     else:
         return send_from_directory(app.static_folder, 'index.html')
-        
+
 
 if __name__ == '__main__':
-    app.run(ssl_context=('cert.pem', 'key.pem'))
+    # app.run(ssl_context=('cert.pem', 'key.pem'))
+    port = int(os.environ.get("PORT", 3000))
+    app.run(host='0.0.0.0', port=port)
