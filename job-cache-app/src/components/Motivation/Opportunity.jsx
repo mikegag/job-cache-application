@@ -33,7 +33,7 @@ export default function Opportunity() {
                     "Accept":"application/json",
                 }
             })    
-           
+            console.log(response)
             if (response.ok) {
                 const responseData = await response.json()
                 const selectedOpportunity = sortResults(responseData.results)[randomIndex()]
