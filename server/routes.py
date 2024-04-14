@@ -218,6 +218,7 @@ def get_selected_application(id):
 def get_job_opportunity():
     try:
         authorization_token = request.headers.get('Authorization')
+        print("---------------" + authorization_token)
         session.modified = True
         headers = {
             "Authorization": authorization_token,
