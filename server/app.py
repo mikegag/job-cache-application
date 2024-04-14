@@ -7,7 +7,7 @@ import pymongo
 from pymongo import MongoClient
 import ssl
 from routes import auth_routes, job_routes
-
+ 
 # Load environment variables from .env file
 load_dotenv()
 
