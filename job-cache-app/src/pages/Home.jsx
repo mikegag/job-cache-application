@@ -48,7 +48,7 @@ export default function Home() {
             <div className="home-info-section" style={infoSectionStyling}>
                 <h1 style={mainTitleStyling}>JobCache</h1>
                 <div style={lineStyling}></div>
-                <h2 style={subtitleStyling}>Effortless Organization for Your Job Applications.</h2>
+                <h2 style={subtitleStyling}>Effortless Organization For Your Job Applications.</h2>
                 <img 
                     src={mainImage} 
                     alt="man holds a briefcase while standing on rocket as it flys into the sky" 
