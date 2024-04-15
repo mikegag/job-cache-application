@@ -227,14 +227,8 @@ def get_job_opportunity():
             "Cache-Control": "no-cache"
         }
         
-
-        print(str(api_key))
-        print(authorization_token)
-        
         url = "https://findwork.dev/api/jobs/?&search=frontend,software,fullstack,backend,developer&employment_type=full%20time&remote=true&sort_by=date_posted&limit=7"
         response = requests.get(url, headers=headers)
-        print(response.headers)
-        print(response.text)
         response.raise_for_status()
         data = response.json()
         return jsonify(data)
