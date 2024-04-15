@@ -227,7 +227,7 @@ def get_job_opportunity():
         }
         api_key = os.environ.get('REACT_APP_FINDWORK_API_KEY')
 
-        print(api_key)
+        print(str(api_key))
         print(authorization_token)
         
         url = "https://findwork.dev/api/jobs/?&search=frontend,software,fullstack,backend,developer&employment_type=full%20time&remote=true&sort_by=date_posted&limit=7"
