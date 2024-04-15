@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from "react"
 
 
 export default function Opportunity() {
-
     const viewedOpportunity = useRef(true)
     const [jobOpportunity, setJobOpportunity] = useState(() => {
         // Retrieve the job opportunity from local storage on initial render
@@ -42,7 +41,6 @@ export default function Opportunity() {
                 localStorage.setItem("lastJobOpportunityTime", Date.now())
             } else {
                 console.error("failed to retrieve job opportunity")
-                console.log(process.env.REACT_APP_FINDWORK_API_KEY)
             }
         } catch (error) {
             console.error("Error:", error)
