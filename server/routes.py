@@ -220,7 +220,7 @@ def get_job_opportunity():
         session.modified = True
         authorization_token = request.headers.get('Authorization')
         headers = {
-            "Authorization": authorization_token,
+            "Authorization": 'Token f7d5d074f4ed5b3239030832fca273cc4ab78fde',
             "Content-Type": "application/json",
             "Accept": "application/json",
             "Cache-Control": "no-cache"
