@@ -217,14 +217,18 @@ def get_selected_application(id):
 @job_routes.route('/job/motivate', methods=['GET'])
 def get_job_opportunity():
     try:
-        authorization_token = request.headers.get('Authorization')
         session.modified = True
+        authorization_token = request.headers.get('Authorization')
         headers = {
             "Authorization": authorization_token,
             "Content-Type": "application/json",
             "Accept": "application/json",
             "Cache-Control": "no-cache"
         }
+        api_key = os.environ.get('REACT_APP_FINDWORK_API_KEY')
+
+        print(api_key)
+        print(authorization_token)
         
         url = "https://findwork.dev/api/jobs/?&search=frontend,software,fullstack,backend,developer&employment_type=full%20time&remote=true&sort_by=date_posted&limit=7"
         response = requests.get(url, headers=headers)
