@@ -228,9 +228,9 @@ def get_job_opportunity():
         
         url = "https://findwork.dev/api/jobs/?&search=frontend,software,fullstack,backend,developer&employment_type=full%20time&remote=true&sort_by=date_posted&limit=7"
         response = requests.get(url, headers=headers)
+        print(response)
         response.raise_for_status()
         data = response.json()
-        print(response)
         return jsonify(data)
 
     except Exception as e:
