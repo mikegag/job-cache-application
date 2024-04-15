@@ -218,14 +218,15 @@ def get_selected_application(id):
 def get_job_opportunity():
     try:
         session.modified = True
+        api_key = os.environ.get('REACT_APP_FINDWORK_API_KEY')
         authorization_token = request.headers.get('Authorization')
         headers = {
-            "Authorization": 'Token f7d5d074f4ed5b3239030832fca273cc4ab78fde',
+            "Authorization": api_key,
             "Content-Type": "application/json",
             "Accept": "application/json",
             "Cache-Control": "no-cache"
         }
-        api_key = os.environ.get('REACT_APP_FINDWORK_API_KEY')
+        
 
         print(str(api_key))
         print(authorization_token)
