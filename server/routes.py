@@ -218,7 +218,6 @@ def get_selected_application(id):
 def get_job_opportunity():
     try:
         authorization_token = request.headers.get('Authorization')
-        print("---------------" + authorization_token)
         session.modified = True
         headers = {
             "Authorization": authorization_token,
@@ -231,6 +230,7 @@ def get_job_opportunity():
         response = requests.get(url, headers=headers)
         response.raise_for_status()
         data = response.json()
+        print(response)
         return jsonify(data)
 
     except Exception as e:
