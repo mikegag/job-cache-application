@@ -80,7 +80,7 @@ export default function Opportunity() {
             clearInterval(intervalId)
             viewedOpportunity.current = false
         }
-    }, [])
+    }, [viewedOpportunity.current])
 
     const positionTitleStyling = {
         fontSize:"0.9rem",
