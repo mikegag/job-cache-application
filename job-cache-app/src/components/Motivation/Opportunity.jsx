@@ -47,22 +47,34 @@ export default function Opportunity() {
     }
 
     useEffect(() => {
-        const lastJobOpportunityTime = localStorage.getItem('lastJobOpportunityTime')
-        const currentTime = Date.now()
-        const timeElapsed = lastJobOpportunityTime ? currentTime - lastJobOpportunityTime : 0
-        //refreshes once a week
-        if (!viewedOpportunity.current || timeElapsed >= 1000 * 60 * 60 * 168) {
-          getJobOpportunity()
-          viewedOpportunity.current = true
-        }
-        const intervalId = setInterval(() => {
-          getJobOpportunity()
-        }, 1000 * 60 * 60 * 168 - timeElapsed)
+        // const lastJobOpportunityTime = localStorage.getItem('lastJobOpportunityTime')
+        // const currentTime = Date.now()
+        // const timeElapsed = lastJobOpportunityTime ? currentTime - lastJobOpportunityTime : 0
+        // //refreshes once a week
+        // if (!viewedOpportunity.current || timeElapsed >= 1000 * 60 * 60 * 168) {
+        //   getJobOpportunity()
+        //   viewedOpportunity.current = true
+        // }
+        // const intervalId = setInterval(() => {
+        //   getJobOpportunity()
+        // }, 1000 * 60 * 60 * 168 - timeElapsed)
     
-        return () => {
-            clearInterval(intervalId)
-            viewedOpportunity.current = false
+        // return () => {
+        //     clearInterval(intervalId)
+        //     viewedOpportunity.current = false
+        // }
+
+        const getAndSetJobOpportunity = async () => {
+            await getJobOpportunity()
+            viewedOpportunity.current = true
         }
+    
+        getAndSetJobOpportunity()
+    
+        const timeUntilEndOfWeek = 1000 * 60 * 60 * 24 * (7 - new Date().getDay())
+        const intervalId = setInterval(getAndSetJobOpportunity, timeUntilEndOfWeek)
+    
+        return () => clearInterval(intervalId)
     }, [])
 
     const positionTitleStyling = {
