@@ -68,7 +68,7 @@ export default function Opportunity() {
         const currentTime = Date.now()
         const timeElapsed = lastJobOpportunityTime ? currentTime - lastJobOpportunityTime : 0
     
-        if (!viewedOpportunity.current || timeElapsed >= 1000 * 60 * 60 * 168) {
+        if (viewedOpportunity.current || timeElapsed >= 1000 * 60 * 60 * 168) {
             getJobOpportunity()
             viewedOpportunity.current = true
         }
