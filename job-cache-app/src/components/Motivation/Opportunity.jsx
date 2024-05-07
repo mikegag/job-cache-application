@@ -49,7 +49,7 @@ export default function Opportunity() {
     useEffect(() => {
         const lastJobOpportunityTime = localStorage.getItem('lastJobOpportunityTime')
         const currentTime = Date.now()
-        const timeElapsed = currentTime - lastJobOpportunityTime
+        const timeElapsed = lastJobOpportunityTime ? currentTime - lastJobOpportunityTime : 0
         //refreshes once a week
         if (!viewedOpportunity.current || timeElapsed >= 1000 * 60 * 60 * 168) {
           getJobOpportunity()
