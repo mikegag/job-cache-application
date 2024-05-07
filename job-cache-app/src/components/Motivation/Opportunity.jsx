@@ -64,17 +64,22 @@ export default function Opportunity() {
         //     viewedOpportunity.current = false
         // }
 
-        const getAndSetJobOpportunity = async () => {
-            await getJobOpportunity()
+        const lastJobOpportunityTime = localStorage.getItem('lastJobOpportunityTime')
+        const currentTime = Date.now()
+        const timeElapsed = lastJobOpportunityTime ? currentTime - lastJobOpportunityTime : 0
+    
+        if (!viewedOpportunity.current || timeElapsed >= 1000 * 60 * 60 * 168) {
+            getJobOpportunity()
             viewedOpportunity.current = true
         }
     
-        getAndSetJobOpportunity()
+        const intervalId = setInterval(() => {
+        }, 1000 * 60 * 60 * 168 - timeElapsed)
     
-        const timeUntilEndOfWeek = 1000 * 60 * 60 * 24 * (7 - new Date().getDay())
-        const intervalId = setInterval(getAndSetJobOpportunity, timeUntilEndOfWeek)
-    
-        return () => clearInterval(intervalId)
+        return () => {
+            clearInterval(intervalId)
+            viewedOpportunity.current = false
+        }
     }, [])
 
     const positionTitleStyling = {
