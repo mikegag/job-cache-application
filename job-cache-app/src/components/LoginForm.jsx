@@ -65,7 +65,7 @@ export default function LoginForm() {
     }
 
     const inputStyling = {
-        margin:"1em auto 3em 0",
+        margin:"1em auto 2em 0",
         fontSize:"0.9rem",
         padding:"1.25em 1.25em 1.25em 2.5em",
         width:"270px",
@@ -137,7 +137,7 @@ export default function LoginForm() {
                                 placeholder="Email"
                                 value={inputs.email || ""} 
                                 onChange={handleChange}
-                                autoComplete="off"
+                                autoComplete="on"
                                 required
                             />
                         </div>
@@ -153,7 +153,7 @@ export default function LoginForm() {
                                 value={inputs.password || ""} 
                                 onChange={handleChange}
                                 required
-                                autoComplete="off"
+                                autoComplete="on"
                             />
                         </div>
                     </label>
