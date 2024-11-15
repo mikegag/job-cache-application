@@ -15,7 +15,7 @@ export default function Home() {
     }
     const mainTitleStyling = {
         textAlign:"center",
-        margin:"1.5em auto 0.1em auto",
+        margin:"2em auto 0.1em auto",
         fontWeight:"900",
         fontSize:"2.5rem"
     }

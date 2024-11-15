@@ -39,28 +39,13 @@ export default function Header(props) {
         margin:"auto 0"
     }
     const buttonStyling = {
-        padding: "0.35em 0.85em 0.3em 0.85em",
+        padding: "0.5em 1.25em",
         border: "1px solid #303E4D",
         background: "#FFC445",
         color: "#303E4D",
-        borderRadius:"20px",
+        borderRadius:"10px",
         cursor:"pointer"
-    }
-    const secondButtonStyling = {
-        padding: "0.35em 0.85em 0.3em 0.85em",
-        border: "1px solid #303E4D",
-        background: "#FFC445",
-        color: "#303E4D",
-        borderRadius:"20px",
-        cursor:"pointer"
-    }
-    const thirdButtonStyling = {
-        padding: "0.35em 0.85em 0.3em 0.85em",
-        border: "1px solid #303E4D",
-        background: "#FFC445",
-        color: "#303E4D",
-        borderRadius:"20px",
-        cursor:"pointer"
+       
     }
     const logoStyling = {
         border:"none",
@@ -70,7 +55,7 @@ export default function Header(props) {
         cursor:"pointer"
     }
     const imageStyling = {
-        width:"50px"
+        width:"60px"
     }
 
     return (
@@ -103,7 +88,7 @@ export default function Header(props) {
                     `/job/${props.secondButtonText.replace(/\s/g, "").toLowerCase()}` 
                 }
                 style={secondLinkStyling}>
-                <button aria-label={`button that redirects to ${props.secondButtonText} page`} style={secondButtonStyling}>
+                <button aria-label={`button that redirects to ${props.secondButtonText} page`} style={buttonStyling}>
                     {props.secondButtonText}
                 </button>
             </Link>
@@ -116,7 +101,7 @@ export default function Header(props) {
                 style={thirdLinkStyling}>
                 <button 
                     aria-label={`button that redirects to ${props.thirdButtonText} page`} 
-                    style={thirdButtonStyling}
+                    style={buttonStyling}
                     onClick={props.thirdButtonText.replace(/\s/g, "").toLowerCase() === "logout" ? handleLogout : null}
                 >
                     {props.thirdButtonText}

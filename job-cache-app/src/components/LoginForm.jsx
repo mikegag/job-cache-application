@@ -77,7 +77,7 @@ export default function LoginForm() {
 
     const iconStyling = {
         position: "absolute", 
-        top: "37%", 
+        top: "42%", 
         left: "10px", 
         transform: "translateY(-50%)",
         opacity:"70%"
@@ -104,7 +104,7 @@ export default function LoginForm() {
     }
 
     const footerStyling = {
-        margin:"1.5em auto 1em auto",
+        margin:"1em auto",
         fontSize:"0.9rem"
     }
 
