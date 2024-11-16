@@ -1,4 +1,4 @@
-import {React, useEffect} from "react";
+import React, {useEffect} from "react";
 import Header from "../components/Header";
 import mainImage from "../assets/man-on-rocket.svg";
 import logo from "../assets/job-cache-logo.png";

@@ -1,9 +1,8 @@
-import React from "react"
-import { useState, useEffect } from "react"
-import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPlusCircle, faChevronRight } from "@fortawesome/free-solid-svg-icons"
-import { TailSpin } from 'react-loader-spinner'
+import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { TailSpin } from 'react-loader-spinner';
 
 export default function JobList() {
     const [applicationList, setApplicationList] = useState([])
@@ -33,16 +32,16 @@ export default function JobList() {
                     "Accept-Encoding": "gzip, deflate",
                 },
                 signal
-            })
+            });
             if (response.ok) {
-                const data = await response.json()
-                setApplicationList(data)
-                setIsLoading(false)
+                const data = await response.json();
+                setApplicationList(data);
+                setIsLoading(false);
             } else {
-                console.error("Failed to retrieve Application List")
+                console.error("Failed to retrieve Application List");
             }
         } catch (error) {
-            console.error("Error:", error)
+            console.error("Error:", error);
         }
     }
     
@@ -54,17 +53,17 @@ export default function JobList() {
         return () => {
             controller.abort()
         }
-    }, [])
+    }, []);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
             if (applicationList.length === 0) {
                 setIsLoading(false)
             }
-        }, 3500)
+        }, 3500);
 
         return () => clearTimeout(timeout)
-    }, [applicationList])
+    }, [applicationList]);
 
     function updateStatusStyling(status) {
         if (status.includes('pending')) {
@@ -74,27 +73,27 @@ export default function JobList() {
         } else {
             return { background: "#303e4d", color: "#fffdf8" };
         }
-    }
+    };
 
     const containerStyling = {
         margin:"4em auto 1em auto"
-    }
+    };
 
     const infoContainerStyling = {
         display:"flex",
         flexDirection:"row"
-    }
+    };
 
     const mainIconStyling = {
         margin:"auto 0 auto auto",
         cursor:"pointer"
-    }
+    };
 
     const mainTitleStyling = {
         margin:"auto auto auto 0",
         textAlign:"left",
         fontWeight:"500"
-    }
+    };
 
     const applicationContainerStyling = {
         background:"#fcf7eb",
@@ -104,7 +103,7 @@ export default function JobList() {
         margin:"2em auto",
         overflow:"scroll",
         maxHeight:"430px"
-    }
+    };
     
     const applicationStyling = {
         background:"#fcf7eb",
@@ -113,23 +112,23 @@ export default function JobList() {
         display:"flex",
         color: "#303e4d",
         textDecoration: "none"
-    }
+    };
 
     const applicationLinkStyling = {
         textDecoration:"none",
         cursor:"pointer"
-    }
+    };
 
     const applicationIconStyling = {
         margin:"auto"
-    }
+    };
 
     const linkStyling = {
         textDecoration:"none",
         margin:"auto 0 auto auto",
         color:"#303e4d",
         fontSize:"1.25rem"
-    }
+    };
 
     const statusStyling = {
         background:"#ffc445",
@@ -138,7 +137,7 @@ export default function JobList() {
         width:"min-content",
         fontSize:"0.8rem",
         margin:"auto"
-    }
+    };
 
     const applicationInfoStyling = {
         display:"flex",
@@ -146,27 +145,27 @@ export default function JobList() {
         margin:"auto",
         justifyContent:"center",
         alignItems:"center",
-    }
+    };
 
     const InfoPositionStyling = {
         margin:"0.25em auto",
         fontSize:"0.9rem",
         fontWeight:"600"
-    }
+    };
 
     const InfoCompanyStyling = {
         margin:"0.25em auto",
         fontSize:"0.9rem",
         fontWeight:"400"
-    }
+    };
 
     const errorMessageStyling = {
         textAlign:"center",
         margin:"5em auto 1em auto"
-    }
+    };
 
     return (
-        <div className="job-list-component" style={containerStyling}>
+        <section className="job-list-component" style={containerStyling}>
                 <div style={infoContainerStyling}>
                     <h3 style={mainTitleStyling}>Job Applications</h3>
                     <Link to="newJob" style={linkStyling}>
@@ -194,7 +193,7 @@ export default function JobList() {
                 ) 
                 : 
                 (
-                    <div style={applicationContainerStyling}>
+                    <article style={applicationContainerStyling}>
                         {applicationList.map(current => (
                             <Link key={current.jobID} to={`${current.company}-${current.jobID}`} style={applicationLinkStyling}>
                                 <div style={applicationStyling} className="job-list-application">
@@ -209,9 +208,9 @@ export default function JobList() {
                                 </div>
                             </Link>
                         ))}
-                    </div>
+                    </article>
                 )
             )}
-        </div>
+        </section>
     )
 }

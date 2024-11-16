@@ -1,23 +1,24 @@
-import React from "react"
-import Header from "../components/Header"
-import Quote from "../components/Motivation/Quote"
-import Opportunity from "../components/Motivation/Opportunity"
-import { faSun, faBolt} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect} from "react"
+import React, {useEffect} from "react";
+import Header from "../components/Header";
+import Quote from "../components/Motivation/Quote";
+import Opportunity from "../components/Motivation/Opportunity";
+import { faSun, faBolt} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 export default function Home() {
     useEffect(() => {
         document.title = "JobCache - Motivation"
-    }, [])
+    }, []);
 
+    // Inline styles for layout and elements
     const infoSectionStyling = {
         display:"flex",
         justifyContent:"center",
         alignItems:"center",
         flexDirection:"column",
         margin:"4em auto 1em auto"
-    }
+    };
 
     const messageContainerStyling = {
         background:"#fcf7eb",
@@ -29,7 +30,7 @@ export default function Home() {
         fontSize:"0.9rem",
         minWidth:"280px",
         textAlign:"center"
-    }
+    };
 
     const titleStyling = {
         fontWeight:"500",
@@ -39,7 +40,7 @@ export default function Home() {
     const iconStyling = {
         fontSize:"1.5rem",
         color:"#303e4d"
-    }
+    };
 
     const dividerStyling = {
         height:"2px",
@@ -47,7 +48,7 @@ export default function Home() {
         margin:"3em auto",
         width:"90%",
         borderRadius:"15px"
-    }
+    };
 
     return (
         <div className="motivate-page">
@@ -55,20 +56,22 @@ export default function Home() {
                 secondButtonText={"MOTIVATE"}
                 thirdButtonText={"LOG OUT"}  
             />
-            <div className="motivate-info-section" style={infoSectionStyling}>
+            <section className="motivate-info-section" style={infoSectionStyling}>
                 <FontAwesomeIcon icon={faSun} style={iconStyling}/>
                 <h4 style={titleStyling}>Daily Motivational Quote</h4>
                 <div className="quote-container" style={messageContainerStyling}>
                     <Quote />
                 </div>
-                <div className="motivate-info-section-divider" style={dividerStyling}></div>
+
+                <div className="motivate-info-section-divider" style={dividerStyling} role="presentation"></div>
+
                 <FontAwesomeIcon icon={faBolt} style={{...iconStyling, rotate:"-10deg"}}/>
                 <h4 style={titleStyling}>Weekly Job Opportunity</h4> 
                 <div className="opportunity-container" style={messageContainerStyling}>
                     <Opportunity />
                 </div>
-            </div>
+            </section>
         </div>
-    )
+    );
 }
 

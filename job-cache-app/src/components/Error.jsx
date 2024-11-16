@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 export default function Error() {
     const messageStyling = {
@@ -6,7 +6,7 @@ export default function Error() {
         padding:"0 1em",
         textAlign:"center",
         fontSize:"1.5rem"
-    }
+    };
 
     return (
         <div className="error-component">

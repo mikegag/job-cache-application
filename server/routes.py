@@ -90,49 +90,93 @@ def logout():
 # job routes
 job_routes = Blueprint('job', __name__)
 
+# @job_routes.route('/job', methods=['GET', 'OPTIONS'])
+# @login_required
+# def get_applications():
+#     session.modified = True
+#     session_token = request.cookies.get('session')
+#     session_token_str = str(session_token)
+
+#     response = make_response()
+#     response.set_cookie('session', session_token_str, secure=True, samesite='None')
+#     response.headers.add("Access-Control-Allow-Origin", "*")
+#     response.headers.add('Access-Control-Allow-Methods', 'GET, OPTIONS')
+#     response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Cache-Control, Authorization')
+#     response.headers.add('Access-Control-Allow-Credentials', 'true') 
+
+#     if request.method == 'OPTIONS':
+#         # Respond to preflight requests with CORS headers
+#         print("options")
+#         return response, 200
+
+#     else: 
+#         print("get")
+#         user_data = collection.find_one({'email': current_user.email})
+#         print(user_data)
+#         if user_data:
+#             applications = user_data.get('applications', [])
+#             application_list = []
+#             for app in applications:
+#                 application_list.append({
+#                     'company': app['company'],
+#                     'position': app['position'],
+#                     'website': app['website'],
+#                     'jobID': app['jobID'],
+#                     'applicationDate': app['applicationDate'],
+#                     'status': app['status'],
+#                 })
+
+#             listData = jsonify(application_list)
+#             response.data = listData.get_data() 
+#             return response, 200
+#         else:
+#             response = jsonify({'message': 'No applications found'})
+#             response.headers.add('Access-Control-Allow-Credentials', 'true')
+#             return response
+
 @job_routes.route('/job', methods=['GET', 'OPTIONS'])
 @login_required
 def get_applications():
-    session.modified = True
-    session_token = request.cookies.get('session')
-    session_token_str = str(session_token)
-
-    response = make_response()
-    response.set_cookie('session', session_token_str, secure=True, samesite='None')
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    response.headers.add('Access-Control-Allow-Methods', 'GET, OPTIONS')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Cache-Control, Authorization')
-    response.headers.add('Access-Control-Allow-Credentials', 'true') 
-
     if request.method == 'OPTIONS':
-        # Respond to preflight requests with CORS headers
-        print("options")
+        # Handle preflight requests
+        response = make_response()
+        response.headers.add("Access-Control-Allow-Origin", request.headers.get("Origin") or "http://localhost:3000")
+        response.headers.add('Access-Control-Allow-Methods', 'GET, OPTIONS')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Cache-Control, Authorization')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
         return response, 200
 
-    else: 
-        print("get")
-        user_data = collection.find_one({'email': current_user.email})
-        print(user_data)
-        if user_data:
-            applications = user_data.get('applications', [])
-            application_list = []
-            for app in applications:
-                application_list.append({
-                    'company': app['company'],
-                    'position': app['position'],
-                    'website': app['website'],
-                    'jobID': app['jobID'],
-                    'applicationDate': app['applicationDate'],
-                    'status': app['status'],
-                })
+    # Handle GET requests
+    user_data = collection.find_one({'email': current_user.email})
+    if user_data:
+        applications = user_data.get('applications', [])
+        application_list = [
+            {
+                'company': app['company'],
+                'position': app['position'],
+                'website': app['website'],
+                'jobID': app['jobID'],
+                'applicationDate': app['applicationDate'],
+                'status': app['status'],
+            }
+            for app in applications
+        ]
+        # Send JSON response
+        response = make_response(jsonify(application_list))
+        response.headers.add("Access-Control-Allow-Origin", request.headers.get("Origin") or "http://localhost:3000")
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        return response, 200
+    else:
+        # No applications found
+        response = make_response(jsonify({'message': 'No applications found'}))
+        response.headers.add("Access-Control-Allow-Origin", request.headers.get("Origin") or "http://localhost:3000")
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        return response, 404
 
-            listData = jsonify(application_list)
-            response.data = listData.get_data() 
-            return response, 200
-        else:
-            response = jsonify({'message': 'No applications found'})
-            response.headers.add('Access-Control-Allow-Credentials', 'true')
-            return response
+
+
+
+
 
 
 @job_routes.route('/job/newJob', methods=['POST'])

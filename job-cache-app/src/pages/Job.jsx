@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import React, {useEffect} from "react";
 import Header from "../components/Header";
 import JobList from "../components/Jobs/JobList";
 
@@ -18,6 +17,6 @@ export default function Job() {
                 <JobList />
             </section>
         </div>
-    )
+    );
 }
 

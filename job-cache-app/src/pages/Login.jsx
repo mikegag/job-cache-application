@@ -1,13 +1,12 @@
-import React from "react"
-import { useEffect } from "react"
-import Header from "../components/Header"
-import LoginForm from "../components/LoginForm"
-import logo from "../assets/job-cache-logo.png"
+import React, { useEffect } from "react";
+import Header from "../components/Header";
+import LoginForm from "../components/LoginForm";
+import logo from "../assets/job-cache-logo.png";
 
 export default function Login() {
     useEffect(() => {
         document.title = "JobCache - Login"
-    }, []) 
+    }, []);
 
     return (
         <div className="login-page">
@@ -18,5 +17,5 @@ export default function Login() {
             />
             <LoginForm />
         </div>
-    )
+    );
 }

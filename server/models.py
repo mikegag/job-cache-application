@@ -48,4 +48,4 @@ class Application():
             'jobID': self.jobID,
             'applicationDate': self.applicationDate,
             'status': self.status
-        }
+        } 
