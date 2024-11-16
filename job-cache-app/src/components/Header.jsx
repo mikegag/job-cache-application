@@ -1,11 +1,11 @@
-import React from "react"
+import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { faFolder } from "@fortawesome/free-solid-svg-icons"
+import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Header(props) {
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
+    // Handle logout action
     const handleLogout = async () => {
         try {
             const response = await fetch('/logout', {
@@ -13,9 +13,10 @@ export default function Header(props) {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            })
+            });
 
             if (response.ok) {
+                // Navigate to login and clear user session
                 navigate('/login')
                 localStorage.removeItem("user_id")
             } else {
@@ -24,20 +25,24 @@ export default function Header(props) {
         } catch (error) {
             console.error('Error:', error)
         }
-    }
+    };
 
+    // Inline styles for layout and elements
     const containerStyling = {
         display:"flex",
-    }
+    };
+
     const firstLinkStyling = {
         margin:"auto auto auto 0"
-    }
+    };
+
     const secondLinkStyling = {
         margin:"auto 1em auto auto"
-    }
+    };
+
     const thirdLinkStyling = {
         margin:"auto 0"
-    }
+    };
     const buttonStyling = {
         padding: "0.5em 1.25em",
         border: "1px solid #303E4D",
@@ -46,17 +51,19 @@ export default function Header(props) {
         borderRadius:"10px",
         cursor:"pointer"
        
-    }
+    };
+
     const logoStyling = {
         border:"none",
         padding:"0",
         margin:"auto auto auto 0",
         height:"50px",
         cursor:"pointer"
-    }
+    };
+
     const imageStyling = {
         width:"60px"
-    }
+    };
 
     return (
         <div className="header-component" style={containerStyling}>
@@ -108,6 +115,6 @@ export default function Header(props) {
                 </button>
             </Link>
         </div>
-    )
+    );
 }
 
