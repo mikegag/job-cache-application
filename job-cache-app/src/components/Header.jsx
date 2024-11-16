@@ -17,7 +17,7 @@ export default function Header(props) {
 
             if (response.ok) {
                 // Navigate to login and clear user session
-                navigate('/login')
+                navigate('/')
                 localStorage.removeItem("user_id")
             } else {
                 console.error('Logout failed')

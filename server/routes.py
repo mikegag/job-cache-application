@@ -137,17 +137,12 @@ job_routes = Blueprint('job', __name__)
 @job_routes.route('/job', methods=['GET', 'OPTIONS'])
 @login_required
 def get_applications():
-    if request.method == 'OPTIONS':
-        # Handle preflight requests
-        response = make_response()
-        response.headers.add("Access-Control-Allow-Origin", request.headers.get("Origin") or "http://localhost:3000")
-        response.headers.add('Access-Control-Allow-Methods', 'GET, OPTIONS')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Cache-Control, Authorization')
-        response.headers.add('Access-Control-Allow-Credentials', 'true')
-        return response, 200
+    if not current_user.is_authenticated:
+        # If the user is not authenticated, return a JSON response or redirect accordingly
+        return jsonify({'message': 'User not authenticated'}), 401
 
-    # Handle GET requests
     user_data = collection.find_one({'email': current_user.email})
+
     if user_data:
         applications = user_data.get('applications', [])
         application_list = [
@@ -161,18 +156,9 @@ def get_applications():
             }
             for app in applications
         ]
-        # Send JSON response
-        response = make_response(jsonify(application_list))
-        response.headers.add("Access-Control-Allow-Origin", request.headers.get("Origin") or "http://localhost:3000")
-        response.headers.add('Access-Control-Allow-Credentials', 'true')
-        return response, 200
+        return jsonify(application_list), 200
     else:
-        # No applications found
-        response = make_response(jsonify({'message': 'No applications found'}))
-        response.headers.add("Access-Control-Allow-Origin", request.headers.get("Origin") or "http://localhost:3000")
-        response.headers.add('Access-Control-Allow-Credentials', 'true')
-        return response, 404
-
+        return jsonify({'message': 'No applications found'}), 404
 
 
 
