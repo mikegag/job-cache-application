@@ -1,8 +1,8 @@
-import React, { useState } from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Link, useNavigate } from "react-router-dom"
-import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
-import { TailSpin } from 'react-loader-spinner'
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link, useNavigate } from "react-router-dom";
+import { faUser, faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import { TailSpin } from 'react-loader-spinner';
 
 export default function SignUpForm() {
     // State for storing form input values

@@ -1,24 +1,27 @@
-import React from "react"
-import { useState } from "react"
-import { useNavigate, Link} from "react-router-dom"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons"
-import { TailSpin } from 'react-loader-spinner'
+import {React, useState} from "react";
+import { useNavigate, Link} from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import { TailSpin } from 'react-loader-spinner';
 
 export default function LoginForm() {
-    const [inputs, setInputs] = useState({})
-    const [failedLogin, setFailedLogin] = useState(false)
-    const [readyToLogin, setReadyToLogin] = useState(false)
-    const navigate = useNavigate()
+    // State to track user input values
+    const [inputs, setInputs] = useState({});
+    // State to track if login has failed
+    const [failedLogin, setFailedLogin] = useState(false);
+    // State to show a loading spinner on successful login
+    const [readyToLogin, setReadyToLogin] = useState(false);
+    const navigate = useNavigate();
 
+    // Handle input changes and update state
     const handleChange = (event) => {
-      const name = event.target.name
-      const value = event.target.value
-      setInputs(values => ({...values, [name]: value}))
-    }
+        const { name, value } = event.target; // Destructure input field name and value
+        setInputs((values) => ({ ...values, [name]: value })); // Update state for the specific input field
+    };
 
+    // Handle form submission
     const handleSubmit = async (event) => {
-        event.preventDefault()
+        event.preventDefault();
         try {
             const response = await fetch("/login", {
                 method: "POST",
@@ -26,43 +29,47 @@ export default function LoginForm() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(inputs)
-            })
+            });
 
             if (response.ok) {
-                const responseData = await response.json()
-                localStorage.setItem("user_id", responseData.user_id)
-                setFailedLogin(false)
-                setInputs({})
-                setReadyToLogin(true)
+                const responseData = await response.json();
+                localStorage.setItem("user_id", responseData.user_id);
+                setFailedLogin(false);
+                setInputs({});
+                // Show loading spinner
+                setReadyToLogin(true);
                 setTimeout(() => {
                     navigate("/job")
-                }, 1300)
+                }, 1300);
             } else {
-                console.error("Login failed")
-                setFailedLogin(true)
-                setReadyToLogin(false)
+                // Login failed
+                console.error("Login failed");
+                setFailedLogin(true);
+                setReadyToLogin(false);
             }
         } catch (error) {
-            console.error("Error:", error)
-            navigate("/*")
-            setReadyToLogin(false)
+            // Handle server or network errors
+            console.error("Error:", error);
+            navigate("/*");
+            setReadyToLogin(false);
         }
         
     }
 
+    // Inline styles for layout and elements
     const containerStyling = {
         display: "flex",
         flexDirection: "column",
         justifyContent:"center",
         alignItems:"center"
-    }
+    };
 
     const mainTitleStyling = {
         textAlign: "center",
         fontSize:"1.5rem",
         textDecoration:"underline",
         margin: "2em auto 1.5em auto",
-    }
+    };
 
     const inputStyling = {
         margin:"1em auto 2em 0",
@@ -73,7 +80,7 @@ export default function LoginForm() {
         background:"#fcf7eb",
         boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
         border:"0.5px solid #303e4d"
-    }
+    };
 
     const iconStyling = {
         position: "absolute", 
@@ -81,7 +88,7 @@ export default function LoginForm() {
         left: "10px", 
         transform: "translateY(-50%)",
         opacity:"70%"
-    }
+    };
 
     const buttonStyling = {
         background: "#303e4d",
@@ -94,23 +101,23 @@ export default function LoginForm() {
         fontFamily: "montserrat, sans-serif",
         fontSize:"1.25rem",
         cursor:"pointer"
-    }
+    };
 
     const errorMessageStyling = {
         fontSize:"0.9rem",
         margin:"0 auto",
         fontWeight:"600",
         opacity:"0%"
-    }
+    };
 
     const footerStyling = {
         margin:"1em auto",
         fontSize:"0.9rem"
-    }
+    };
 
     const linkStyling = {
         color:"#303e4d"
-    }
+    };
 
     return (
         <div className="login-form-component" style={containerStyling}>
@@ -121,7 +128,7 @@ export default function LoginForm() {
                     height="50"
                     width="50"
                     color="#303e4d"
-                    ariaLabel="tail-spin-loading"
+                    ariaLabel="Loading spinner"
                     radius="1"
                     style={{marginTop:"4em"}}
                 />)
