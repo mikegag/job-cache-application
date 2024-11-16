@@ -17,7 +17,7 @@ export default function JobList() {
             if (!sessionToken) {
                 throw new Error('Session token not found in localStorage');
             }
-            setCookieWithSameSite('session', sessionToken)
+            setCookieWithSameSite('session', sessionToken) 
 
             const response = await fetch("/job", {
                 method: "GET",
