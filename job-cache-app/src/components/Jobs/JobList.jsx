@@ -5,12 +5,14 @@ import { faPlusCircle, faChevronRight } from "@fortawesome/free-solid-svg-icons"
 import { TailSpin } from 'react-loader-spinner';
 
 export default function JobList() {
+    // State for storing job applications and loading status
     const [applicationList, setApplicationList] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const setCookieWithSameSite = (name, value) => {
         document.cookie = `${name}=${value}; SameSite=None; Secure`
     }     
 
+    // Fetch job applications from the backend
     const getApplications = async (signal) => {
         try {
             const sessionToken = localStorage.getItem('user_id')
@@ -31,7 +33,7 @@ export default function JobList() {
                     "Cache-Control": "no-cache",
                     "Accept-Encoding": "gzip, deflate",
                 },
-                signal
+                signal,
             });
             if (response.ok) {
                 const data = await response.json();
@@ -43,28 +45,31 @@ export default function JobList() {
         } catch (error) {
             console.error("Error:", error);
         }
-    }
+    };
     
+    // Fetch applications on component mount and clean up on unmount
     useEffect(() => {
-        const controller = new AbortController()
-        const signal = controller.signal
-        getApplications(signal)
+        const controller = new AbortController();
+        const signal = controller.signal;
+        getApplications(signal);
     
         return () => {
-            controller.abort()
+            controller.abort();
         }
     }, []);
 
+    // Fallback in case no applications are loaded after a delay
     useEffect(() => {
         const timeout = setTimeout(() => {
             if (applicationList.length === 0) {
-                setIsLoading(false)
+                setIsLoading(false);
             }
-        }, 3500);
+        }, 3000);
 
-        return () => clearTimeout(timeout)
+        return () => clearTimeout(timeout);
     }, [applicationList]);
 
+    // Update styles dynamically based on application status
     function updateStatusStyling(status) {
         if (status.includes('pending')) {
             return { background: "#ffc445" };
@@ -75,6 +80,7 @@ export default function JobList() {
         }
     };
 
+    // Inline styles for layout and elements
     const containerStyling = {
         margin:"4em auto 1em auto"
     };
@@ -133,7 +139,7 @@ export default function JobList() {
     const statusStyling = {
         background:"#ffc445",
         borderRadius:"20px",
-        padding:"0.35em 1em",
+        padding:"0.5em 1.5em",
         width:"min-content",
         fontSize:"0.8rem",
         margin:"auto"
@@ -166,12 +172,19 @@ export default function JobList() {
 
     return (
         <section className="job-list-component" style={containerStyling}>
-                <div style={infoContainerStyling}>
-                    <h3 style={mainTitleStyling}>Job Applications</h3>
-                    <Link to="newJob" style={linkStyling}>
-                        <FontAwesomeIcon icon={faPlusCircle} style={mainIconStyling} className="form-navigation-icon" />
-                    </Link>
-                </div>
+            <div style={infoContainerStyling}>
+                <h3 style={mainTitleStyling}>Job Applications</h3>
+                <Link to="newJob" style={linkStyling}>
+                    <FontAwesomeIcon 
+                        icon={faPlusCircle} 
+                        style={mainIconStyling} 
+                        className="form-navigation-icon"
+                        aria-label="Add new job" 
+                    />
+                </Link>
+            </div>
+
+            {/* Content based on loading and application state */}
             { isLoading ? 
             (
                 <div style={{...applicationInfoStyling, margin:"3em auto"}}>
@@ -180,7 +193,7 @@ export default function JobList() {
                         height="50"
                         width="50"
                         color="#303e4d"
-                        ariaLabel="tail-spin-loading"
+                        ariaLabel="Loading spinner"
                         radius="1"
                     />
                 </div>
@@ -189,7 +202,9 @@ export default function JobList() {
             (
                 applicationList.length === 0 ? 
                 (
-                    <p style={errorMessageStyling}>No applications to be displayed. Start adding some!</p>
+                    <p style={errorMessageStyling}>
+                        No applications to be displayed. Start adding some!
+                    </p>
                 ) 
                 : 
                 (
@@ -198,13 +213,21 @@ export default function JobList() {
                             <Link key={current.jobID} to={`${current.company}-${current.jobID}`} style={applicationLinkStyling}>
                                 <div style={applicationStyling} className="job-list-application">
                                     <div style={{ ...applicationInfoStyling, width: "150px", textAlign: "center" }}>
-                                        <p style={InfoPositionStyling}>{current.position}</p>
-                                        <p style={InfoCompanyStyling}>@{current.company}</p>
+                                        <p style={InfoPositionStyling}>
+                                            {current.position}
+                                        </p>
+                                        <p style={InfoCompanyStyling}>
+                                            @{current.company}
+                                        </p>
                                     </div>
                                     <div style={{ ...statusStyling, ...updateStatusStyling(current.status) }}>
                                         {current.status}
                                     </div>
-                                    <FontAwesomeIcon icon={faChevronRight} style={applicationIconStyling} />
+                                    <FontAwesomeIcon 
+                                        icon={faChevronRight} 
+                                        style={applicationIconStyling} 
+                                        aria-label={`View details of ${current.position} at ${current.company}`}
+                                    />
                                 </div>
                             </Link>
                         ))}

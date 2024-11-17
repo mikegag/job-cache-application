@@ -49,7 +49,8 @@ export default function Header(props) {
         background: "#FFC445",
         color: "#303E4D",
         borderRadius:"10px",
-        cursor:"pointer"
+        cursor:"pointer",
+        margin: "auto"
        
     };
 
@@ -72,8 +73,13 @@ export default function Header(props) {
                 <Link to={"/"} style={firstLinkStyling}>
                     <button 
                         style={logoStyling}
-                        aria-label={`button that redirects to Home page `}>
-                            <img src={props.icon} alt="JobCache logo" style={imageStyling}/>
+                        aria-label={`button that redirects to Home page `}
+                    >
+                        <img 
+                            src={props.icon} 
+                            alt="JobCache logo" 
+                            style={imageStyling}
+                        />
                     </button> 
                 </Link>
                 )
@@ -82,8 +88,13 @@ export default function Header(props) {
                 <Link to={"/job"} style={firstLinkStyling}>
                     <button 
                         aria-label={`button that redirects to Jobs page`}
-                        style={buttonStyling}> 
-                            <FontAwesomeIcon icon={faFolder} /> JOBS 
+                        style={buttonStyling}
+                    > 
+                        <FontAwesomeIcon 
+                            icon={faFolder} 
+                            style={{marginRight:"0.5em"}} 
+                        /> 
+                        JOBS 
                     </button> 
                 </Link>
                 )
@@ -95,7 +106,10 @@ export default function Header(props) {
                     `/job/${props.secondButtonText.replace(/\s/g, "").toLowerCase()}` 
                 }
                 style={secondLinkStyling}>
-                <button aria-label={`button that redirects to ${props.secondButtonText} page`} style={buttonStyling}>
+                <button 
+                    aria-label={`button that redirects to ${props.secondButtonText} page`} 
+                    style={buttonStyling}
+                >
                     {props.secondButtonText}
                 </button>
             </Link>

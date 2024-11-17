@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from "react"
-import { useParams, Link } from 'react-router-dom'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons"
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 export default function JobDetails() {
-    const [inputs, setInputs] = useState({})
-    const [applicationDetails, setApplicationDetails] = useState({})
-    const [applicationUpdated, setApplicationUpdated] = useState(false)
-    const { id } = useParams()
+    const [inputs, setInputs] = useState({});
+    const [applicationDetails, setApplicationDetails] = useState({});
+    const [applicationUpdated, setApplicationUpdated] = useState(false);
+    const { id } = useParams();
 
+    // Handle input field changes
     const handleChange = (event) => {
-        const { name, value } = event.target
-        setInputs(prevState => ({ ...prevState, [name]: value }))
-    }
+        const { name, value } = event.target;
+        setInputs(prevState => ({ ...prevState, [name]: value }));
+    };
 
+    // Handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault()
         const controller = new AbortController()
@@ -26,22 +28,23 @@ export default function JobDetails() {
                 },
                 body: JSON.stringify(inputs),
                 signal
-            })
+            });
             if (response.ok) {
-                const data = await response.json()
-                setApplicationDetails(data)
-                setInputs({})
-                setApplicationUpdated(true)
+                const data = await response.json();
+                setApplicationDetails(data);
+                setInputs({});
+                setApplicationUpdated(true);
             } else {
-                console.error("Application Update failed")
+                console.error("Application Update failed");
             }
         } catch (error) {
-            console.error("Error:", error)
+            console.error("Error:", error);
         } finally {
-            controller.abort()
+            controller.abort();
         }
-    }
+    };
     
+    // Fetch application details
     const getSelectedApplication = async (signal) => {
         try {
             const response = await fetch(`/job/${id}`, {
@@ -60,34 +63,36 @@ export default function JobDetails() {
         } catch (error) {
             console.error("Error:", error)
         }
-    }
+    };
 
+    // Update application details when update occurs
     useEffect(() => {
-        const controller = new AbortController()
-        const signal = controller.signal
-        getSelectedApplication(signal)
+        const controller = new AbortController();
+        const signal = controller.signal;
+        getSelectedApplication(signal);
         return () => {
-            controller.abort()
+            controller.abort();
         }
-    }, [applicationUpdated])
+    }, [applicationUpdated]);
 
     function updateStatusStyling(status) {
         if (status && status.includes && typeof status.includes === 'function') {
             if (status.includes('pending')) {
-                return { background: "#ffc445" }
+                return { background: "#ffc445" };
             } else if (status.includes('accepted')) {
-                return { background: "#3F9F00", color: "#fffdf8" }
+                return { background: "#3F9F00", color: "#fffdf8" };
             } else {
-                return { background: "#303e4d", color: "#fffdf8" }
+                return { background: "#303e4d", color: "#fffdf8" };
             }
         } else {
-            return {  background: "#ffc445" }
+            return {  background: "#ffc445" };
         }
-    }
+    };
     
+    // Inline styles for layout and elements
     const containerStyling = {
         margin:"4em auto 1em auto"
-    }
+    };
 
     const applicationContainerStyling = {
         background:"#fcf7eb",
@@ -96,32 +101,32 @@ export default function JobDetails() {
         boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
         margin:"2em auto",
         padding:"1em"
-    }
+    };
 
     const titleContainerStyling = {
         display:"flex",
         flexDirection:"row"
-    }
+    };
 
     const mainTitleStyling = {
         margin:"auto auto auto 0",
         textAlign:"left",
         fontWeight:"500"
-    }
+    };
 
     const linkStyling = {
         textDecoration:"none",
         margin:"auto 0 auto auto",
         color:"#303e4d",
         fontSize:"1.25rem"
-    }
+    };
 
     const jobInfoContainerStyling = {
         ...titleContainerStyling,
         borderBottom:"0.5px solid #303e4d",
         fontSize:"0.9rem",
         fontWeight:"600"
-    }
+    };
 
     const leftJobInfoContainerStyling = {
         padding:"0 1em 0.75em 1em",
@@ -130,33 +135,33 @@ export default function JobDetails() {
         textAlign:"left",
         textOverflow:"ellipsis",
         wordBreak:"break-word"
-    }
+    };
 
     const rightJobInfoContainerStyling = {
         padding:"0 0 0.75em 1em",
         minWidth: "110px",
         margin:"0 auto auto 0",
         textAlign:"left",
-    }
+    };
 
     const dividerStyling = {
         borderLeft:"0.5px solid #303e4d", 
         width:"2px"
-    }
+    };
 
     const statusStyling = {
         borderRadius:"20px",
         background: "#ffc445",
         padding:"0.3em 0.8em",
         width:"min-content"
-    }
+    };
 
     const labelStyling = {
         display:"flex",
         flexDirection:"column",
         margin:"0 1em 1em 0",
         fontSize:"0.9rem"
-    }
+    };
 
     const formContainerStyling = {
         display:"flex",
@@ -164,7 +169,7 @@ export default function JobDetails() {
         alignItems:"center",
         flexWrap:"wrap",
         margin:"1.5em auto 0.5em auto"
-    }
+    };
 
     const inputStyling = {
         margin:"1em auto 1em 0",
@@ -175,7 +180,7 @@ export default function JobDetails() {
         boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
         border:"0.5px solid #303e4d",
         fontFamily:"Montserrat, sans-serif"
-    }
+    };
 
     const buttonStyling = {
         background: "#303e4d",
@@ -188,34 +193,49 @@ export default function JobDetails() {
         fontFamily: "Montserrat, sans-serif",
         fontSize:"1rem",
         cursor:"pointer"
-    }
+    };
 
     const buttonContainerStyling = {
         width:"100%",
         display:"flex",
         justifyContent:"center",
         alignItems:"center"
-    }
+    };
 
     return (
         <div className="job-details-component" style={containerStyling}>
            <div style={titleContainerStyling}>
                 <h3 style={mainTitleStyling}>Job Applications</h3>
                 <Link to="/job" style={linkStyling}>
-                    <FontAwesomeIcon icon={faArrowLeftLong} className="form-navigation-icon" />
+                    <FontAwesomeIcon 
+                        icon={faArrowLeftLong} 
+                        className="form-navigation-icon"
+                        aria-label="view all job applications" 
+                    />
                 </Link>
             </div>
-            <div style={applicationContainerStyling}>
+
+            <section style={applicationContainerStyling}>
                 <div className="job-details-info-section" style={jobInfoContainerStyling}>
                     <div className="details-info-left" style={leftJobInfoContainerStyling}>
-                        <p>{applicationDetails.position}</p>
-                        <p>@{applicationDetails.company}</p>
-                        <p>{applicationDetails.website}</p>
+                        <p>
+                            {applicationDetails.position}
+                        </p>
+                        <p>
+                            @{applicationDetails.company}
+                        </p>
+                        <p>
+                            {applicationDetails.website}
+                        </p>
                     </div>
-                    <div style={dividerStyling}></div>
+                    <div style={dividerStyling} role="presentation"></div>
                     <div className="details-info-right" style={rightJobInfoContainerStyling}>
-                        <p>{applicationDetails.jobID}</p>
-                        <p>{applicationDetails.applicationDate}</p>
+                        <p>
+                            {applicationDetails.jobID}
+                        </p>
+                        <p>
+                            {applicationDetails.applicationDate}
+                        </p>
                         <div style={{...statusStyling, ...updateStatusStyling(applicationDetails.status)}}>
                             {applicationDetails.status}
                         </div>
@@ -224,69 +244,77 @@ export default function JobDetails() {
                 <form onSubmit={handleSubmit} style={formContainerStyling}>
                     <label style={labelStyling}> Position
                         <input 
+                            id="position"
                             type="text" 
                             name="position"
                             value={inputs.position || ""} 
                             onChange={handleChange}
                             style={{...inputStyling, width:"270px"}}
                             className="form-input"
-                            autoComplete="off"
+                            autoComplete="on"
+                            maxLength={60}
                         />
                     </label>
                     <label style={labelStyling}> Company
                         <input 
+                            id="company"
                             type="text" 
                             name="company"
                             value={inputs.company || ""} 
                             onChange={handleChange}
                             style={{...inputStyling, width:"270px"}}
                             className="form-input"
-                            autoComplete="off"
+                            autoComplete="on"
+                            maxLength={40}
                         />
                     </label>
                     <label style={labelStyling}> Company Website
                         <input 
+                            id="website"
                             type="url" 
                             name="website"
                             value={inputs.website || ""} 
                             onChange={handleChange}
                             style={{...inputStyling, width:"140px"}}
                             className="form-input"
-                            autoComplete="off"
+                            autoComplete="on"
+                            maxLength={200}
                         />
                     </label>
                     <label style={labelStyling}> Job ID
-                        <input 
+                        <input
+                            id="jobID" 
                             type="text" 
                             name="jobID"
                             value={inputs.jobID || ""} 
                             onChange={handleChange}
                             style={{...inputStyling, width:"90px"}}
                             className="form-input"
-                            autoComplete="off"
+                            autoComplete="on"
+                            maxLength={25}
                         />
                     </label>
                     <label style={labelStyling}> Application Date
-                        <input 
+                        <input
+                            id="applicationDate" 
                             type="date" 
                             name="applicationDate"
                             value={inputs.applicationDate || ""} 
                             onChange={handleChange}
                             style={{...inputStyling, width:"130px"}}
                             className="form-input"
-                            autoComplete="off"
+                            autoComplete="on"
                         />
                     </label>
                     <label style={labelStyling}> Status
                         <select
-                            
                             name="status"
                             value={inputs.status || ""} 
                             onChange={handleChange}
                             style={{...inputStyling, width:"120px"}}
                             className="form-input"
                         >
-                            <option value="-">------</option>
+                            <option value="-" disabled>------</option>
                             <option value="pending">Pending</option>
                             <option value="denied">Denied</option>
                             <option value="accepted">Accepted</option>
@@ -294,13 +322,15 @@ export default function JobDetails() {
                     </label>
                     <div style={buttonContainerStyling}>
                         {applicationUpdated ?
-                            <p>Application has been successfully updated!</p>
+                            <p>
+                                Application has been successfully updated!
+                            </p>
                         :
                             <input type="submit" value="Update" style={buttonStyling} className="form-btn"/>
                         }   
                     </div>
                 </form>
-            </div>
+            </section>
         </div>
-    )
+    );
 }
