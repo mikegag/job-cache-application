@@ -32,36 +32,66 @@ export default function Opportunity() {
             });
             if (response.ok) {
                 const responseData = await response.json();
-                const selectedOpportunity = sortResults(responseData.results)[randomIndex()];
-                setJobOpportunity(selectedOpportunity);
-                localStorage.setItem("jobOpportunity", JSON.stringify(selectedOpportunity));
-                localStorage.setItem("lastJobOpportunityTime", Date.now());
-            } else {
-                console.error("failed to retrieve job opportunity");
+            //     const selectedOpportunity = sortResults(responseData.results)[randomIndex()];
+            //     setJobOpportunity(selectedOpportunity);
+            //     localStorage.setItem("jobOpportunity", JSON.stringify(selectedOpportunity));
+            //     localStorage.setItem("lastJobOpportunityTime", Date.now());
+            // } else {
+            //     console.error("failed to retrieve job opportunity");
+            // }
+
+                const results = responseData?.results || [];
+                const filteredResults = sortResults(results);
+                if (filteredResults.length > 0) {
+                    const selectedOpportunity = filteredResults[randomIndex()];
+                    setJobOpportunity(selectedOpportunity);
+                    localStorage.setItem("jobOpportunity", JSON.stringify(selectedOpportunity));
+                    localStorage.setItem("lastJobOpportunityTime", Date.now());
+                } else {
+                    console.error("No valid job opportunities found.");
+                }
             }
         } catch (error) {
             console.error("Error:", error);
         }
     };
 
+    // useEffect(() => {
+    //     const lastJobOpportunityTime = localStorage.getItem('lastJobOpportunityTime');
+    //     const currentTime = Date.now();
+    //     const timeElapsed = lastJobOpportunityTime ? currentTime - lastJobOpportunityTime : 0
+    
+    //     if (viewedOpportunity.current || timeElapsed >= 1000 * 60 * 60 * 168) {
+    //         getJobOpportunity()
+    //         viewedOpportunity.current = true
+    //     }
+    
+    //     const intervalId = setInterval(() => {
+    //     }, 1000 * 60 * 60 * 168 - timeElapsed)
+    
+    //     return () => {
+    //         clearInterval(intervalId)
+    //         viewedOpportunity.current = false;
+    //     }
+    // }, [viewedOpportunity.current]);
+
     useEffect(() => {
-        const lastJobOpportunityTime = localStorage.getItem('lastJobOpportunityTime');
+        const lastJobOpportunityTime = parseInt(localStorage.getItem("lastJobOpportunityTime"), 10);
         const currentTime = Date.now();
-        const timeElapsed = lastJobOpportunityTime ? currentTime - lastJobOpportunityTime : 0
+        const timeElapsed = lastJobOpportunityTime ? currentTime - lastJobOpportunityTime : Infinity;
     
         if (viewedOpportunity.current || timeElapsed >= 1000 * 60 * 60 * 168) {
-            getJobOpportunity()
-            viewedOpportunity.current = true
+            getJobOpportunity();
+            viewedOpportunity.current = false; // Mark as viewed
         }
     
-        const intervalId = setInterval(() => {
-        }, 1000 * 60 * 60 * 168 - timeElapsed)
+        // Set up interval for refreshing job opportunities
+        const intervalId = setInterval(getJobOpportunity, 1000 * 60 * 60 * 168);
     
-        return () => {
-            clearInterval(intervalId)
-            viewedOpportunity.current = false;
-        }
-    }, [viewedOpportunity.current]);
+        return () => clearInterval(intervalId);
+    }, []);
+
+    
 
     // Inline styles for layout and elements
     const positionTitleStyling = {
@@ -88,6 +118,7 @@ export default function Opportunity() {
                             target="_blank" 
                             rel="noopener noreferrer"
                             style={JobLinkStyling}
+                            title={`View job opportunity at ${jobOpportunity.company_name}`}
                         >
                             <p>View Job Opportunity</p>
                         </a>
