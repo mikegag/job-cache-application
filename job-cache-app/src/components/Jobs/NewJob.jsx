@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 export default function NewJob() {
-    const [open, setOpen] = useState(false)
-    const [inputs, setInputs] = useState({})
-    const [applicationAdded, setApplicationAdded] = useState(false)
+    // State to toggle form visibility
+    const [open, setOpen] = useState(false);
+    // State to manage form inputs
+    const [inputs, setInputs] = useState({});
+    // State to display a success message
+    const [applicationAdded, setApplicationAdded] = useState(false);
 
+    // Handle form input changes
     const handleChange = (event) => {
-        const { name, value } = event.target
-        setInputs(prevState => ({ ...prevState, [name]: value }))
+        const { name, value } = event.target;
+        setInputs(prevState => ({ ...prevState, [name]: value }));
     }
   
+     // Handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -22,25 +27,26 @@ export default function NewJob() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(inputs)
-            })
+            });
     
             if (response.ok) {
-                setInputs({})
-                setApplicationAdded(true)
+                setInputs({});
+                setApplicationAdded(true);
                 setTimeout(() => {
-                    setApplicationAdded(false)
-                }, 4000)
+                    setApplicationAdded(false);
+                }, 4000);
             } else {
-                console.error("Failed to save new application")
+                console.error("Failed to save new application");
             }
         } catch (error) {
-            console.error("Error:", error)
+            console.error("Error:", error);
         }
-    }    
+    };    
 
+    // Styling for various components
     const containerStyling = {
         margin:"4em auto 1em auto"
-    }
+    };
 
     const applicationContainerStyling = {
         background:"#fcf7eb",
@@ -49,32 +55,32 @@ export default function NewJob() {
         boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
         margin:"2em auto",
         padding:"1em"
-    }
+    };
 
     const titleContainerStyling = {
         display:"flex",
         flexDirection:"row"
-    }
+    };
 
     const mainTitleStyling = {
         margin:"auto auto auto 0",
         textAlign:"left",
         fontWeight:"500"
-    }
+    };
 
     const linkStyling = {
         textDecoration:"none",
         margin:"auto 0 auto auto",
         color:"#303e4d",
         fontSize:"1.25rem"
-    }
+    };
 
     const jobInfoContainerStyling = {
         ...titleContainerStyling,
         borderBottom:"0.5px solid #303e4d",
         fontSize:"0.9rem",
         fontWeight:"600"
-    }
+    };
 
     const leftJobInfoContainerStyling = {
         padding:"0 1em 0.75em 1em",
@@ -83,33 +89,33 @@ export default function NewJob() {
         textAlign:"left",
         textOverflow:"ellipsis",
         wordBreak:"break-word"
-    }
+    };
 
     const rightJobInfoContainerStyling = {
         padding:"0 0 0.75em 1em",
         minWidth: "110px",
         margin:"0 auto auto 0",
         textAlign:"left",
-    }
+    };
 
     const dividerStyling = {
         borderLeft:"0.5px solid #303e4d", 
         width:"2px"
-    }
+    };
 
     const statusStyling = {
         borderRadius:"20px",
         background:"#ffc445",
         padding:"0.3em 0.8em",
         width:"min-content"
-    }
+    };
 
     const labelStyling = {
         display:"flex",
         flexDirection:"column",
         margin:"0 1.15em 1em 0",
         fontSize:"0.9rem"
-    }
+    };
 
     const formContainerStyling = {
         display:"flex",
@@ -117,7 +123,7 @@ export default function NewJob() {
         alignItems:"center",
         flexWrap:"wrap",
         margin:"1.5em auto 0.5em auto"
-    }
+    };
 
     const inputStyling = {
         margin:"1em auto 1em 0",
@@ -128,7 +134,7 @@ export default function NewJob() {
         boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
         border:"0.5px solid #303e4d",
         fontFamily:"Montserrat, sans-serif"
-    }
+    };
 
     const buttonStyling = {
         background: "#303e4d",
@@ -141,24 +147,24 @@ export default function NewJob() {
         fontFamily: "Montserrat, sans-serif",
         fontSize:"1rem",
         cursor:"pointer"
-    }
+    };
 
     const buttonContainerStyling = {
         width:"100%",
         display:"flex",
         justifyContent:"center",
         alignItems:"center"
-    }
+    };
 
     const showButtonStyling = {
         ...buttonStyling,
         display: "block"
-    }
+    };
     
     const hideButtonStyling = {
         ...buttonStyling,
         display: "none"
-    }
+    };
 
     return (
         <div className="new-job-component" style={containerStyling}>
@@ -168,14 +174,18 @@ export default function NewJob() {
                     <FontAwesomeIcon icon={faArrowLeftLong} className="form-navigation-icon"/>
                 </Link>
             </div>
-            <div style={applicationContainerStyling}>
+            <section style={applicationContainerStyling}>
                 <div className="new-job-info-section" style={jobInfoContainerStyling}>
+                    {/* Left Job Information */}
                     <div className="job-info-left" style={leftJobInfoContainerStyling}>
                         <p>Position</p>
                         <p>@Company</p>
                         <p>Company Website</p>
                     </div>
-                    <div style={dividerStyling}></div>
+
+                    <div style={dividerStyling} role="presentation"></div>
+                    
+                    {/* Right Job Information */}
                     <div className="job-info-right" style={rightJobInfoContainerStyling}>
                         <p>Job ID</p>
                         <p>Application Date</p>
@@ -186,13 +196,18 @@ export default function NewJob() {
                     onClick={() => setOpen(prev => !prev)} 
                     style={!open? showButtonStyling:hideButtonStyling}
                     className="form-btn"
+                    aria-expanded={open}
+                    aria-controls="add-job-form"
                 > 
                     Add Job
                 </button>
+
+                {/* Add Job Form */}
                 {open &&
-                    <form onSubmit={handleSubmit} style={formContainerStyling}>
+                    <form id="add-job-form" onSubmit={handleSubmit} style={formContainerStyling}>
                         <label style={labelStyling}> Position
                             <input 
+                                id="position"
                                 type="text" 
                                 name="position"
                                 value={inputs.position || ""} 
@@ -200,11 +215,13 @@ export default function NewJob() {
                                 required
                                 style={{...inputStyling, width:"270px"}}
                                 className="form-input"
-                                autoComplete="off"
+                                autoComplete="on"
+                                maxLength={60}
                             />
                         </label>
                         <label style={labelStyling}> Company
                             <input 
+                                id="company"
                                 type="text" 
                                 name="company"
                                 value={inputs.company || ""} 
@@ -212,34 +229,39 @@ export default function NewJob() {
                                 required
                                 style={{...inputStyling, width:"270px"}}
                                 className="form-input"
-                                autoComplete="off"
+                                autoComplete="on"
+                                maxLength={40}
                             />
                         </label>
                         <label style={labelStyling}> Company Website
                             <input 
+                                id="website"
                                 type="url" 
                                 name="website"
                                 value={inputs.website || ""} 
                                 onChange={handleChange}
                                 style={{...inputStyling, width:"140px"}}
                                 className="form-input"
-                                autoComplete="off"
+                                autoComplete="on"
+                                maxLength={200}
                             />
                         </label>
                         <label style={labelStyling}> Job ID
                             <input 
+                                id="jobID"
                                 type="text" 
                                 name="jobID"
                                 value={inputs.jobID || ""} 
                                 onChange={handleChange}
                                 style={{...inputStyling, width:"90px"}}
-                                required
                                 className="form-input"
-                                autoComplete="off"
+                                autoComplete="on"
+                                maxLength={25}
                             />
                         </label>
                         <label style={labelStyling}> Application Date
-                            <input 
+                            <input
+                                id="applicationDate"
                                 type="date" 
                                 name="applicationDate"
                                 value={inputs.applicationDate || ""} 
@@ -247,7 +269,7 @@ export default function NewJob() {
                                 required
                                 style={{...inputStyling, width:"130px"}}
                                 className="form-input"
-                                autoComplete="off"
+                                autoComplete="on"
                             />
                         </label>
                         <label style={labelStyling}> Status
@@ -267,14 +289,16 @@ export default function NewJob() {
                         </label>
                         <div style={buttonContainerStyling}>
                             {applicationAdded ?
-                                <p>Application has been successfully added!</p>
+                                <p>
+                                    Application has been successfully added!
+                                </p>
                             :
                                 <input type="submit" value="Add Job" style={buttonStyling} className="form-btn"/>
                             }
                         </div>
                     </form>
                 }
-            </div>
+            </section>
         </div>
     )
 }

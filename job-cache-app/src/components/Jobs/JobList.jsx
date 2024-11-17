@@ -6,11 +6,11 @@ import { TailSpin } from 'react-loader-spinner';
 
 export default function JobList() {
     // State for storing job applications and loading status
-    const [applicationList, setApplicationList] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
+    const [applicationList, setApplicationList] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const setCookieWithSameSite = (name, value) => {
-        document.cookie = `${name}=${value}; SameSite=None; Secure`
-    }     
+        document.cookie = `${name}=${value}; SameSite=None; Secure`;
+    };
 
     // Fetch job applications from the backend
     const getApplications = async (signal) => {
@@ -235,5 +235,5 @@ export default function JobList() {
                 )
             )}
         </section>
-    )
+    );
 }
