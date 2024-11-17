@@ -144,7 +144,7 @@ def new_job():
 def get_selected_application(id):
     if request.method == 'GET':
         # Retrieve application data based on the provided URL
-        company, jobID = id.split('-') 
+        company, jobID = id.split('-')
 
         user_data = collection.find_one({'email': current_user.email})
         applications = user_data.get('applications', [])

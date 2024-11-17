@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import Header from "../components/Header";
 import mainImage from "../assets/man-on-rocket.svg";
 import logo from "../assets/job-cache-logo.png";
+import trailer from "../assets/jobcache.mp4";
 
 export default function Home() {
     useEffect(() => {
@@ -59,6 +60,16 @@ export default function Home() {
                     className="main-image"
                     style={imageStyling}
                 />
+            </section>
+            <section style={infoSectionStyling} >
+                <div style={{...lineStyling, margin:"10em auto 2em auto", width:"280px"}} role="presentation"></div>
+                <h2 className={subtitleStyling}>How does JobCache Work?</h2>
+                <div className="video-container">
+                    <video className="responsive-video" controls>
+                        <source src={trailer} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
             </section>
         </div>
     );
