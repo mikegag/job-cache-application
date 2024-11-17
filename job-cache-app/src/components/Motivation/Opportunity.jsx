@@ -1,14 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 
 export default function Opportunity() {
-    const viewedOpportunity = useRef(true);
-    // const [jobOpportunity, setJobOpportunity] = useState(() => {
-    //     // Retrieve the job opportunity from local storage on initial render
-    //     const storedJobOpportunity = localStorage.getItem("jobOpportunity");
-    //     return storedJobOpportunity ? JSON.parse(storedJobOpportunity) : null;
-    // });
+    // State to store the current job opportunity
     const [jobOpportunity, setJobOpportunity] = useState(null);
 
+    // Filters job results to exclude unwanted roles like "Director" or "Sales".
     function sortResults(data) {
         return data.filter(current => (
             !current.role.toLowerCase().includes("director") && 
@@ -16,10 +12,12 @@ export default function Opportunity() {
         ));
     };
 
+    // Helper function used to find a random job results index
     function randomIndex() {
         return Math.floor(Math.random()*10);
     };
 
+    // Fetches a job opportunity from the FindWork.dev API
     const getJobOpportunity = async () => {
         try {
             const response = await fetch("/job/motivate", {
@@ -33,20 +31,11 @@ export default function Opportunity() {
             });
             if (response.ok) {
                 const responseData = await response.json();
-            //     const selectedOpportunity = sortResults(responseData.results)[randomIndex()];
-            //     setJobOpportunity(selectedOpportunity);
-            //     localStorage.setItem("jobOpportunity", JSON.stringify(selectedOpportunity));
-            //     localStorage.setItem("lastJobOpportunityTime", Date.now());
-            // } else {
-            //     console.error("failed to retrieve job opportunity");
-            // }
-
                 const results = responseData?.results || [];
                 const filteredResults = sortResults(results);
                 if (filteredResults.length > 0) {
                     const selectedOpportunity = filteredResults[randomIndex()];
                     setJobOpportunity(selectedOpportunity);
-                    //localStorage.setItem("jobOpportunity", JSON.stringify(selectedOpportunity));
                     localStorage.setItem("lastJobOpportunityTime", Date.now());
                 } else {
                     console.error("No valid job opportunities found.");
@@ -57,33 +46,15 @@ export default function Opportunity() {
         }
     };
 
-    // useEffect(() => {
-    //     const lastJobOpportunityTime = localStorage.getItem('lastJobOpportunityTime');
-    //     const currentTime = Date.now();
-    //     const timeElapsed = lastJobOpportunityTime ? currentTime - lastJobOpportunityTime : 0
-    
-    //     if (viewedOpportunity.current || timeElapsed >= 1000 * 60 * 60 * 168) {
-    //         getJobOpportunity()
-    //         viewedOpportunity.current = true
-    //     }
-    
-    //     const intervalId = setInterval(() => {
-    //     }, 1000 * 60 * 60 * 168 - timeElapsed)
-    
-    //     return () => {
-    //         clearInterval(intervalId)
-    //         viewedOpportunity.current = false;
-    //     }
-    // }, [viewedOpportunity.current]);
-
+    // Effect hook to handle job opportunity fetch logic
     useEffect(() => {
         const lastJobOpportunityTime = parseInt(localStorage.getItem("lastJobOpportunityTime"), 10);
         const currentTime = Date.now();
         const timeElapsed = lastJobOpportunityTime ? currentTime - lastJobOpportunityTime : Infinity;
     
-        if (viewedOpportunity.current || timeElapsed >= 1000 * 60 * 60 * 168) {
+        // Fetch a new opportunity if the specified interval has passed
+        if (timeElapsed >= 1000 * 60 * 60 * 168) {
             getJobOpportunity();
-            viewedOpportunity.current = false; // Mark as viewed
         }
     
         // Set up interval for refreshing job opportunities
@@ -91,9 +62,7 @@ export default function Opportunity() {
     
         return () => clearInterval(intervalId);
     }, []);
-
     
-
     // Inline styles for layout and elements
     const positionTitleStyling = {
         fontSize:"0.9rem",
