@@ -2,11 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 
 export default function Opportunity() {
     const viewedOpportunity = useRef(true);
-    const [jobOpportunity, setJobOpportunity] = useState(() => {
-        // Retrieve the job opportunity from local storage on initial render
-        const storedJobOpportunity = localStorage.getItem("jobOpportunity");
-        return storedJobOpportunity ? JSON.parse(storedJobOpportunity) : null;
-    });
+    // const [jobOpportunity, setJobOpportunity] = useState(() => {
+    //     // Retrieve the job opportunity from local storage on initial render
+    //     const storedJobOpportunity = localStorage.getItem("jobOpportunity");
+    //     return storedJobOpportunity ? JSON.parse(storedJobOpportunity) : null;
+    // });
+    const [jobOpportunity, setJobOpportunity] = useState(null);
 
     function sortResults(data) {
         return data.filter(current => (
@@ -16,7 +17,7 @@ export default function Opportunity() {
     };
 
     function randomIndex() {
-        return Math.floor(Math.random()*3);
+        return Math.floor(Math.random()*10);
     };
 
     const getJobOpportunity = async () => {
@@ -45,7 +46,7 @@ export default function Opportunity() {
                 if (filteredResults.length > 0) {
                     const selectedOpportunity = filteredResults[randomIndex()];
                     setJobOpportunity(selectedOpportunity);
-                    localStorage.setItem("jobOpportunity", JSON.stringify(selectedOpportunity));
+                    //localStorage.setItem("jobOpportunity", JSON.stringify(selectedOpportunity));
                     localStorage.setItem("lastJobOpportunityTime", Date.now());
                 } else {
                     console.error("No valid job opportunities found.");

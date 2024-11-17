@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/static/js/main.e7d387fb.js",
+    "main.js": "/static/js/main.bea8214e.js",
     "static/media/man-on-rocket.svg": "/static/media/man-on-rocket.2d19c2abc903ea27e0efcb16cd8eecf0.svg",
     "static/media/job-cache-logo.png": "/static/media/job-cache-logo.571ad2481e1503508564.png",
     "index.html": "/index.html",
-    "main.e7d387fb.js.map": "/static/js/main.e7d387fb.js.map"
+    "main.bea8214e.js.map": "/static/js/main.bea8214e.js.map"
   },
   "entrypoints": [
-    "static/js/main.e7d387fb.js"
+    "static/js/main.bea8214e.js"
   ]
 }
