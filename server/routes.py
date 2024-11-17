@@ -8,14 +8,13 @@ import ssl
 from flask import session
 from flask_cors import CORS, cross_origin
 
-
 mongodb_uri = os.getenv('MONGODB_URI')
 client = MongoClient(mongodb_uri, ssl=True, ssl_cert_reqs=ssl.CERT_NONE)
 db = client['users']
 collection = db['details']
 
 
-# authentication routes
+# authentication routes -----------------
 auth_routes = Blueprint('auth', __name__)
 
 @auth_routes.route('/login', methods=['POST', 'GET'])
@@ -53,7 +52,6 @@ def login():
         else:
             return redirect(url_for('auth.signup'))
 
-
 @auth_routes.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
@@ -77,7 +75,6 @@ def signup():
 
     return jsonify({'message': 'User created successfully'})
 
-
 @auth_routes.route('/logout', methods=['POST'])
 @login_required
 def logout():
@@ -87,52 +84,8 @@ def logout():
 
 
 
-# job routes
+# job routes --------------------------
 job_routes = Blueprint('job', __name__)
-
-# @job_routes.route('/job', methods=['GET', 'OPTIONS'])
-# @login_required
-# def get_applications():
-#     session.modified = True
-#     session_token = request.cookies.get('session')
-#     session_token_str = str(session_token)
-
-#     response = make_response()
-#     response.set_cookie('session', session_token_str, secure=True, samesite='None')
-#     response.headers.add("Access-Control-Allow-Origin", "*")
-#     response.headers.add('Access-Control-Allow-Methods', 'GET, OPTIONS')
-#     response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Cache-Control, Authorization')
-#     response.headers.add('Access-Control-Allow-Credentials', 'true') 
-
-#     if request.method == 'OPTIONS':
-#         # Respond to preflight requests with CORS headers
-#         print("options")
-#         return response, 200
-
-#     else: 
-#         print("get")
-#         user_data = collection.find_one({'email': current_user.email})
-#         print(user_data)
-#         if user_data:
-#             applications = user_data.get('applications', [])
-#             application_list = []
-#             for app in applications:
-#                 application_list.append({
-#                     'company': app['company'],
-#                     'position': app['position'],
-#                     'website': app['website'],
-#                     'jobID': app['jobID'],
-#                     'applicationDate': app['applicationDate'],
-#                     'status': app['status'],
-#                 })
-
-#             listData = jsonify(application_list)
-#             response.data = listData.get_data() 
-#             return response, 200
-#         else:
-#             response = jsonify({'message': 'No applications found'})
-#             response.headers.add('Access-Control-Allow-Credentials', 'true')
-#             return response
 
 @job_routes.route('/job', methods=['GET', 'OPTIONS'])
 @login_required
@@ -160,11 +113,6 @@ def get_applications():
     else:
         return jsonify({'message': 'No applications found'}), 404
 
-
-
-
-
-
 @job_routes.route('/job/newJob', methods=['POST'])
 @login_required
 def new_job():
@@ -191,7 +139,6 @@ def new_job():
 
     return jsonify({'message': 'New application saved successfully'}), 201
 
-
 @job_routes.route('/job/<id>', methods=['GET', 'POST'])
 @login_required
 def get_selected_application(id):
@@ -214,7 +161,6 @@ def get_selected_application(id):
                 })
 
         return jsonify({'error': 'Application not found'}), 404
-
 
     elif request.method == 'POST':
         data = request.json
@@ -243,7 +189,6 @@ def get_selected_application(id):
 
         return jsonify({'error': 'Application not found'}), 404
 
-
 @job_routes.route('/job/motivate', methods=['GET'])
 def get_job_opportunity():
     try:
@@ -257,7 +202,8 @@ def get_job_opportunity():
             "Cache-Control": "no-cache"
         }
         
-        url = "https://findwork.dev/api/jobs/?&search=frontend,software,fullstack,backend,developer&employment_type=full%20time&remote=true&sort_by=date_posted&limit=7"
+        #url = "https://findwork.dev/api/jobs/?&search=frontend,software,fullstack,backend,developer&employment_type=full%20time,contract&remote=true&sort_by=date_posted&limit=7"
+        url = "https://findwork.dev/api/jobs/?&search=frontend,software,fullstack,backend,developer,engineer&remote=true&sort_by=date_posted&limit=7"
         response = requests.get(url, headers=headers)
         response.raise_for_status()
         data = response.json()

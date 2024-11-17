@@ -19,6 +19,7 @@ export default function Header(props) {
                 // Navigate to login and clear user session
                 navigate('/')
                 localStorage.removeItem("user_id")
+                document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             } else {
                 console.error('Logout failed')
             }
@@ -90,11 +91,8 @@ export default function Header(props) {
                         aria-label={`button that redirects to Jobs page`}
                         style={buttonStyling}
                     > 
-                        <FontAwesomeIcon 
-                            icon={faFolder} 
-                            style={{marginRight:"0.5em"}} 
-                        /> 
-                        JOBS 
+                        <FontAwesomeIcon icon={faFolder} /> 
+                        <span style={{marginLeft:"0.25em"}} >JOBS</span>
                     </button> 
                 </Link>
                 )
