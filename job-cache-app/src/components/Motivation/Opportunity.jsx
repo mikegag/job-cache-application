@@ -32,7 +32,6 @@ export default function Opportunity() {
             });
             if (response.ok) {
                 const responseData = await response.json();
-                console.log(responseData);
                 const selectedOpportunity = sortResults(responseData.results)[randomIndex()];
                 setJobOpportunity(selectedOpportunity);
                 localStorage.setItem("jobOpportunity", JSON.stringify(selectedOpportunity));

@@ -203,7 +203,7 @@ def get_job_opportunity():
         }
         
         #url = "https://findwork.dev/api/jobs/?&search=frontend,software,fullstack,backend,developer&employment_type=full%20time,contract&remote=true&sort_by=date_posted&limit=7"
-        url = "https://findwork.dev/api/jobs/?&search=frontend,software,fullstack,backend,developer,engineer&remote=true&sort_by=date_posted&limit=7"
+        url = "https://findwork.dev/api/jobs/?&search=software&remote=true&sort_by=date_posted&limit=7"
         response = requests.get(url, headers=headers)
         response.raise_for_status()
         data = response.json()
