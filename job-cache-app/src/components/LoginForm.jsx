@@ -78,8 +78,8 @@ export default function LoginForm() {
         width:"270px",
         borderRadius:"10px",
         background:"#fcf7eb",
-        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
-        border:"0.5px solid #303e4d"
+        border:"0.5px solid #303e4d",
+        fontFamily: 'montserrat'
     };
 
     const iconStyling = {
@@ -91,14 +91,14 @@ export default function LoginForm() {
     };
 
     const buttonStyling = {
-        background: "#303e4d",
+        background: "#ffc445",
         margin:"4em auto 1em auto",
-        width: "270px",
-        padding: "0.6em 2em",
-        border: "none",
+        width: "325px",
+        padding: "0.75em 2em",
+        border: "0.5px solid #303e4d",
         borderRadius: "10px",
-        color: "#fffdf8",
-        fontFamily: "montserrat, sans-serif",
+        color: "#303e4d",
+        fontFamily: "montserrat",
         fontSize:"1.25rem",
         cursor:"pointer"
     };

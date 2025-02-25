@@ -74,7 +74,7 @@ export default function JobList() {
         if (status.includes('pending')) {
             return { background: "#ffc445" };
         } else if (status.includes('accepted')) {
-            return { background: "#3F9F00", color: "#fffdf8" };
+            return { background: "#f0ad1e", color: "#303e4d" };
         } else {
             return { background: "#303e4d", color: "#fffdf8" };
         }
@@ -105,7 +105,6 @@ export default function JobList() {
         background:"#fcf7eb",
         borderRadius:"10px",
         border:"0.5px solid #303e4d",
-        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
         margin:"2em auto",
         overflow:"scroll",
         maxHeight:"430px"
@@ -151,6 +150,7 @@ export default function JobList() {
         margin:"auto",
         justifyContent:"center",
         alignItems:"center",
+        fontFamily:"montserrat"
     };
 
     const InfoPositionStyling = {

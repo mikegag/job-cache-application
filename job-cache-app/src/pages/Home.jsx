@@ -65,7 +65,7 @@ export default function Home() {
                 <div style={{...lineStyling, margin:"10em auto 2em auto", width:"280px"}} role="presentation"></div>
                 <h2 className={subtitleStyling}>How does JobCache Work?</h2>
                 <div className="video-container">
-                    <video className="responsive-video" controls>
+                    <video className="responsive-video" aria-label="video demonstrating various features and sectiosn of JobCache" controls>
                         <source src={trailer} type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>

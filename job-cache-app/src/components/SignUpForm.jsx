@@ -71,7 +71,7 @@ export default function SignUpForm() {
         width:"270px",
         borderRadius:"10px",
         background:"#fcf7eb",
-        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
+        fontFamily: 'montserrat',
         border:"0.5px solid #303e4d"
     };
 
@@ -84,14 +84,14 @@ export default function SignUpForm() {
     };
 
     const buttonStyling = {
-        background: "#303e4d",
+        background: "#ffc445",
         margin:"3em auto 1em auto",
-        width: "270px",
+        width: "325px",
         padding: "0.6em 2em",
-        border: "none",
+        border: "0.5px solid #303e4d",
         borderRadius: "10px",
-        color: "#fffdf8",
-        fontFamily: "montserrat, sans-serif",
+        color: "#303e4d",
+        fontFamily: "montserrat",
         fontSize:"1.25rem",
         cursor:"pointer"
     };

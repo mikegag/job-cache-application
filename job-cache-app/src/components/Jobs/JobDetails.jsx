@@ -80,7 +80,7 @@ export default function JobDetails() {
             if (status.includes('pending')) {
                 return { background: "#ffc445" };
             } else if (status.includes('accepted')) {
-                return { background: "#3F9F00", color: "#fffdf8" };
+                return { background: "#f0ad1e", color: "#303e4d" };
             } else {
                 return { background: "#303e4d", color: "#fffdf8" };
             }
@@ -177,20 +177,19 @@ export default function JobDetails() {
         padding:"0.75em",
         borderRadius:"10px",
         background:"#fffdf8",
-        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
         border:"0.5px solid #303e4d",
-        fontFamily:"Montserrat, sans-serif"
+        fontFamily:"Montserrat"
     };
 
     const buttonStyling = {
-        background: "#303e4d",
+        background: "#ffc445",
         margin:"2em auto",
         width: "160px",
         padding: "0.75em 1.5em",
         border: "none",
         borderRadius: "10px",
         color: "#fffdf8",
-        fontFamily: "Montserrat, sans-serif",
+        fontFamily: "Montserrat",
         fontSize:"1rem",
         cursor:"pointer"
     };

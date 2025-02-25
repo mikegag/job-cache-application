@@ -51,8 +51,9 @@ export default function Header(props) {
         color: "#303E4D",
         borderRadius:"10px",
         cursor:"pointer",
-        margin: "auto"
-       
+        margin: "auto",
+        fontFamily: 'Montserrat',
+        fontWeight: '500'
     };
 
     const logoStyling = {
